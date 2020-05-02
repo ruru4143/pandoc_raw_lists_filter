@@ -9,22 +9,32 @@ def raw_list(key, value, format, meta):
             OrderedList_list = []
             for listitem in code.split("\n"):
                 if listitem is not None:
+                    listitem_list = listitem.split(" ")
+                    typechar = listitem_list[0]
                     i = 0
                     # if the kind of the list is "(typechar)", it has to take the second char
-                    if listitem[i] == "(":
+                    if typechar[-1] == ")":
                         i = 1
-                        formating = "TwoParens"
-                    elif listitem[1] == ".":
+                        if typechar[0] == "(":
+                            formating = "TwoParens"
+                            number_str = typechar[1:][:-1]
+                        else:
+                            formating = "OneParen"
+                            number_str = typechar[:-1]
+                    elif typechar[-1] == ".":
                         formating = "Period"
-                    elif listitem[1] == ")":
-                        formating = "OneParen"
+                        number_str = typechar[:-1]
                     else:
+                        print(typechar)
+                        print(typechar[-1])
                         raise ValueError("Wrong formatting")
-                    type_of_list = gettype(listitem[i])
-                    number = int(listitem[i], 10)
+
+                    type_of_list = gettype(number_str)
+                    number = int(number_str, 34)
+
 
                     Str_list = []
-                    for str_part in listitem.split(" ")[1:]:  # loops trough all except the first item,
+                    for str_part in listitem_list[1:]:  # loops trough all except the first item,
                         Str_list.append(Str(str_part))        # which is the type char
 
                     Str_Spcae_list = []
@@ -34,9 +44,10 @@ def raw_list(key, value, format, meta):
                         Str_Spcae_list.append({'t': "Space"})
                         Str_Spcae_list.append(Str_item)
 
-                    OrderedList_list.append(OrderedList([number, {"t":type_of_list}, {"t":formating}], [[Plain(Str_Spcae_list)]]))
+                    OrderedList_list.append(OrderedList([number_str, {"t":type_of_list}, {"t":formating}], [[Plain(Str_Spcae_list)]]))
 
             return OrderedList_list
+
 
 def gettype(list_style_type_character):
     """ Input typechar of OrderedList, outputs its type
