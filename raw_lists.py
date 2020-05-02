@@ -44,7 +44,7 @@ def raw_list(key, value, format, meta):
                         Str_Spcae_list.append({'t': "Space"})
                         Str_Spcae_list.append(Str_item)
 
-                    OrderedList_list.append(OrderedList([number_str, {"t":type_of_list}, {"t":formating}], [[Plain(Str_Spcae_list)]]))
+                    OrderedList_list.append(OrderedList([number, {"t":type_of_list}, {"t":formating}], [[Plain(Str_Spcae_list)]]))
 
             return OrderedList_list
 
@@ -66,7 +66,7 @@ def gettype(list_style_type_character):
     if list_style_type_character == "i" or \
             list_style_type_character == "I":
         type += "Roma"
-    elif not list_style_type_character.isnumeric:
+    elif not list_style_type_character.isnumeric():
         type += "Alpha"
 
     return type
