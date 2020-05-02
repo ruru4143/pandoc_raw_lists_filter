@@ -13,5 +13,5 @@ pandoc example.md -o example.pdf --filter=./raw_lists.py
 2. example text
 3. third item
 1. test text
-\```
+\``` <-- you have to remove the backslash (escaping ´ in codeblocks is weird)
 ```
